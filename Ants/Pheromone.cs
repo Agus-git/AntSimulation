@@ -13,7 +13,7 @@ namespace AntSimulation
         {
             if (intensity > 100) { intensity = 100; }
 
-            Pheromone[] neighbours = FindNear(pos, world)
+            Pheromone[] neighbours = world.GameObjectsNear(pos)
                 .Select(each => each as Pheromone)
                 .Where(p => p != null)
                 .ToArray();
@@ -36,12 +36,7 @@ namespace AntSimulation
                 }
             }
         }
-        private static GameObject[] FindNear(PointF ubic, World world)
-        {
-            GameObject[] temp = world.GameObjectsNear(ubic,1);
-            temp.Where(i => i != null);
-            return temp;
-        }
+
         private double intensity;
 
         public Pheromone(double intensity = 100)

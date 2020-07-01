@@ -15,9 +15,8 @@ namespace AntSimulation
         private const int height = 125;
         private Size size = new Size(width, height);
         private List<GameObject> objects = new List<GameObject>();
-        private List<GameObject> comida = new List<GameObject>();
-        
-        public int GameObjects { get { return objects.Count + comida.Count; } }
+
+        public IEnumerable<GameObject> GameObjects { get { return objects.ToArray(); } }
 
         public int Width { get { return width; } }
         public int Height { get { return height; } }
@@ -45,26 +44,6 @@ namespace AntSimulation
             return (float)rnd.NextDouble() * (max - min) + min;
         }
 
-        public void Add(Food obj)
-        {
-            comida.Add(obj);
-        }
-
-        public void Remove(Food obj)
-        {
-            comida.Remove(obj);
-        }
-
-        public void Add(Pheromone obj)
-        {
-            comida.Add(obj);
-        }
-
-        public void Remove(Pheromone obj)
-        {
-            comida.Remove(obj);
-        }
-
         public void Add(GameObject obj)
         {
             objects.Add(obj);
@@ -77,12 +56,7 @@ namespace AntSimulation
 
         public void Update()
         {
-            foreach (var item in comida.ToArray())
-            {
-                item.InternalUpdateOn(this);
-                item.Position = Mod(item.Position, size);
-            }
-            foreach (GameObject obj in objects.ToArray())
+            foreach (GameObject obj in GameObjects)
             {
                 obj.InternalUpdateOn(this);
                 obj.Position = Mod(obj.Position, size);
@@ -92,13 +66,9 @@ namespace AntSimulation
         public void DrawOn(Graphics graphics)
         {
             graphics.FillRectangle(Brushes.White, 0, 0, width, height);
-            foreach (GameObject obj in objects.ToArray())
+            foreach (GameObject obj in GameObjects)
             {
                 graphics.FillRectangle(new Pen(obj.Color).Brush, obj.Bounds);
-            }
-            foreach (GameObject item in comida)
-            {
-                graphics.FillRectangle(new Pen(item.Color).Brush, item.Bounds);
             }
         }
 
@@ -125,30 +95,9 @@ namespace AntSimulation
             return new PointF(Mod(p.X, s.Width), Mod(p.Y, s.Height));
         }
         
-        public GameObject[] GameObjectsNear(PointF pos,int radio)
+        public IEnumerable<GameObject> GameObjectsNear(PointF pos, float dist = 1)
         {
-            List<GameObject> temp = new List<GameObject>();
-            Point ubicacion = new Point(0, 0);
-            ubicacion.X = int.Parse(pos.X.ToString());
-            ubicacion.Y = int.Parse(pos.Y.ToString());
-            byte contador = 0;
-            GameObject[] miComida = comida.ToArray();
-
-            for (int x = ubicacion.X - radio; x < ubicacion.X + radio; x++)
-            {
-                for (int y = ubicacion.Y - radio; y < ubicacion.Y + radio; y++)
-                {
-                    foreach (var item in miComida)
-                    {
-                        if (pos == item.Position)
-                        {
-                            temp.Add(item);
-                        }
-                    }
-                    contador++;
-                }
-            }
-            return temp.ToArray();
+            return GameObjects.Where(t => Dist(t.Position, pos) < dist);
         }
 
     }
