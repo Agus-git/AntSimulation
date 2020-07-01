@@ -1,0 +1,10 @@
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\bin\Debug\AntSimulation.exe.config
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\bin\Debug\AntSimulation.exe
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\bin\Debug\AntSimulation.pdb
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.csprojAssemblyReference.cache
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.Form1.resources
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.Properties.Resources.resources
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.csproj.GenerateResource.cache
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.csproj.CoreCompileInputs.cache
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.exe
+C:\Users\agust\OneDrive\Documentos\Git\AntSimulation\AntSimulation\obj\Debug\AntSimulation.pdb

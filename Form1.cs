@@ -42,7 +42,6 @@ namespace AntSimulation
                 ant.Position = nest.Position;
                 world.Add(ant);
             }
-
             SpawnSomeFood();
         }
 
@@ -68,7 +67,7 @@ namespace AntSimulation
 
         private void updateTimer_Tick(object sender, EventArgs e)
         {
-            Text = world.GameObjects.Count().ToString();
+            Text = world.GameObjects.ToString();
             ClientSize = new Size(world.Width * scale, world.Height * scale);
             world.Update();
             Refresh();

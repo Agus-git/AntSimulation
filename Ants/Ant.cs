@@ -44,7 +44,7 @@ namespace AntSimulation
 
         private bool CheckFood(World world)
         {
-            IEnumerable<GameObject> food = FindNear<Food>(world, 15);
+            IEnumerable<GameObject> food = FindNear (world, 15);
             if (food.Any())
             {
                 GameObject f = food.Where(each => each.Position.Equals(Position)).FirstOrDefault();
@@ -65,9 +65,10 @@ namespace AntSimulation
 
         private void CheckPheromone(World world)
         {
+            int[] test = new int[4];
             PointF? strongestPoint = null;
             double strongestIntensity = 0;
-            IEnumerable<Pheromone> nearPheromones = FindNear<Pheromone>(world, 10);
+            IEnumerable<Pheromone> nearPheromones = FindNear(world, 10).OfType<Pheromone>();
             foreach (Pheromone p in nearPheromones.Where(p => p.Intensity > 5))
             {
                 if (p.Intensity > strongestIntensity)
@@ -99,20 +100,11 @@ namespace AntSimulation
             }
         }
 
-        private IEnumerable<T> FindNear<T>(World world, float radius) where T : GameObject
+        private GameObject[] FindNear (World world, float radius)
         {
-            List<T> result = new List<T>();
-            for (float x = Position.X - radius; x <= Position.X + radius; x++)
-            {
-                for (float y = Position.Y - radius; y <= Position.Y + radius; y++)
-                {
-                    result.AddRange(world
-                        .GameObjectsNear(new PointF(x, y))
-                        .Select(t => t as T)
-                        .Where(t => t != null));
-                }
-            }
-            return result;
+            GameObject[] temp = world.GameObjectsNear(Position,int.Parse(radius.ToString()));
+            temp.Where(i => i != null);
+            return temp;
         }
     }
 }
