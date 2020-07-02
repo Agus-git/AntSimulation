@@ -124,31 +124,28 @@ namespace AntSimulation
         {
             return new PointF(Mod(p.X, s.Width), Mod(p.Y, s.Height));
         }
+
+        List<GameObject> tempNear = new List<GameObject>();
         
         public GameObject[] GameObjectsNear(PointF pos,int radio)
         {
-            List<GameObject> temp = new List<GameObject>();
-            Point ubicacion = new Point(0, 0);
-            ubicacion.X = int.Parse(pos.X.ToString());
-            ubicacion.Y = int.Parse(pos.Y.ToString());
-            byte contador = 0;
-            GameObject[] miComida = comida.ToArray();
+            tempNear.Clear();
+            int Cx = int.Parse(pos.X.ToString()) - radio;
+            int Fx = int.Parse(pos.X.ToString()) + radio;
+            int Cy = int.Parse(pos.Y.ToString()) - radio;
+            int Fy = int.Parse(pos.Y.ToString()) + radio;
 
-            for (int x = ubicacion.X - radio; x < ubicacion.X + radio; x++)
+            foreach (var item in comida)
             {
-                for (int y = ubicacion.Y - radio; y < ubicacion.Y + radio; y++)
+                if (item.Position.X >= Cx && item.Position.X <= Fx)
                 {
-                    foreach (var item in miComida)
+                    if (item.Position.Y >= Cy && item.Position.Y <= Fy)
                     {
-                        if (pos == item.Position)
-                        {
-                            temp.Add(item);
-                        }
+                        tempNear.Add(item);
                     }
-                    contador++;
                 }
             }
-            return temp.ToArray();
+            return tempNear.ToArray();
         }
 
     }

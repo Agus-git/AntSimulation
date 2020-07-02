@@ -50,8 +50,13 @@ namespace AntSimulation
                 GameObject f = food.Where(each => each.Position.Equals(Position)).FirstOrDefault();
                 if (f != null)
                 {
-                    hasFood = true;
-                    world.Remove(f);
+                    if (f is Food)
+                    {
+                        world.Remove((Food)f);
+                        hasFood = true;
+                    }
+                    else
+                        world.Remove((Pheromone)f);
                 }
                 else
                 {
