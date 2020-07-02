@@ -1,14 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace AntSimulation
 {
@@ -44,7 +44,6 @@ namespace AntSimulation
                 ant.Position = nest.Position;
                 world.Add(ant);
             }
-
             SpawnSomeFood();
         }
 
@@ -70,15 +69,15 @@ namespace AntSimulation
 
         private void updateTimer_Tick(object sender, EventArgs e)
         {
-            Text = world.GameObjects.Count().ToString();
+            Text = world.GameObjects.ToString();
             ClientSize = new Size(world.Width * scale, world.Height * scale);
             var reloj = Stopwatch.StartNew();
+            world.Update();
             reloj.Stop();
             using (StreamWriter stream = new StreamWriter("Medicion.txt", true))
             {
                 stream.WriteLine(reloj.Elapsed.TotalSeconds);
             }
-            world.Update();
             Refresh();
         }
 
